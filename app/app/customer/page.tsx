@@ -2,9 +2,9 @@
 
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
+import dynamic from 'next/dynamic';
 import { toast } from 'sonner';
 import { Geolocation } from '@capacitor/geolocation';
-import dynamic from 'next/dynamic';
 import {
   Navigation,
   Crosshair,
@@ -35,7 +35,6 @@ import type { NearbyCar } from '@/components/fon-map';
 import LogoutButton from '@/app/components/LogoutButton';
 import TopupModal from '@/components/topup-modal';
 
-const FonMap = dynamic(() => import('@/components/fon-map'), { ssr: false, loading: () => null });
 
 type Phase = 'idle' | 'requesting' | 'searching' | 'assigned' | 'in_progress' | 'completed';
 type PayMethod = 'wallet' | 'cash';
@@ -55,6 +54,8 @@ interface DriverWithDetails {
   selfie_url: string | null;
   rating: number;
 }
+
+const FonMap = dynamic(() => import('@/components/fon-map'), { ssr: false, loading: () => null });
 
 export default function CustomerApp() {
   const router = useRouter();

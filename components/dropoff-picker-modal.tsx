@@ -1,15 +1,14 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import dynamic from 'next/dynamic';
 import 'leaflet/dist/leaflet.css';
+import dynamic from 'next/dynamic';
 import { X, MapPin, Rocket, Loader2, CheckCircle2, Search } from 'lucide-react';
 import { haversineDistance } from '@/lib/pricing';
 import { openDirectGPS } from '@/lib/gps-nav';
 import { reverseGeocode, searchAddress, type SearchResult } from '@/lib/geo';
 import type { Ride } from '@/lib/supabase';
 
-const FonMap = dynamic(() => import('@/components/fon-map'), { ssr: false, loading: () => null });
 
 interface DropoffPickerModalProps {
   ride: Ride;
@@ -18,6 +17,8 @@ interface DropoffPickerModalProps {
   onClose: () => void;
   onSaved: (updatedRide: Ride) => void;
 }
+
+const FonMap = dynamic(() => import('@/components/fon-map'), { ssr: false, loading: () => null });
 
 export default function DropoffPickerModal({
   ride,

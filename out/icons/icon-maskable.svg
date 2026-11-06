@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFC300"/>
+      <stop offset="50%" style="stop-color:#FFE17A"/>
+      <stop offset="100%" style="stop-color:#FFC300"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="128" fill="url(#gold)"/>
+  <g transform="translate(256, 216)">
+    <path d="M-80 60C-84 60 -88 56 -88 52V36L-84 6C-83 0 -79 -4 -73 -4H-43L-26 -18C-25 -19 -24 -20 -22 -20H6C8 -20 9 -19 10 -18L27 -4H57C63 -4 67 0 68 6L72 36V52C72 56 68 60 64 60H52C47 60 43 57 42 53L40 48H-56L-58 53C-59 57 -63 60 -68 60H-80Z" fill="#0a0a0a"/>
+    <circle cx="-50" cy="44" r="10" fill="#0a0a0a" stroke="url(#gold)" stroke-width="2"/>
+    <circle cx="34" cy="44" r="10" fill="#0a0a0a" stroke="url(#gold)" stroke-width="2"/>
+  </g>
+  <text x="256" y="380" text-anchor="middle" font-family="Arial, sans-serif" font-size="56" font-weight="bold" fill="#0a0a0a">FON TAXI</text>
+</svg>

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0a0a"/>
+      <stop offset="100%" style="stop-color:#1a1a1a"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFC300"/>
+      <stop offset="50%" style="stop-color:#FFE17A"/>
+      <stop offset="100%" style="stop-color:#FFC300"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="96" fill="url(#bg)"/>
+  <rect width="512" height="512" rx="96" fill="none" stroke="url(#gold)" stroke-width="4"/>
+  <g transform="translate(256, 256)">
+    <circle cx="0" cy="0" r="160" fill="none" stroke="url(#gold)" stroke-width="3" opacity="0.2"/>
+    <g transform="translate(-80, -70) scale(2.2)">
+      <path d="M18 92C14 92 10 88 10 84V68L14 38C15 32 19 28 25 28H55L72 14C73 13 74 12 76 12H104C106 12 107 13 108 14L125 28H155C161 28 165 32 166 38L170 68V84C170 88 166 92 162 92H150C145 92 141 89 140 85L138 80H42L40 85C39 89 35 92 30 92H18Z" fill="url(#gold)"/>
+      <circle cx="48" cy="76" r="10" fill="#0a0a0a" stroke="url(#gold)" stroke-width="2"/>
+      <circle cx="132" cy="76" r="10" fill="#0a0a0a" stroke="url(#gold)" stroke-width="2"/>
+      <rect x="25" y="35" width="130" height="6" rx="3" fill="#0a0a0a" opacity="0.3"/>
+    </g>
+    <text x="0" y="120" text-anchor="middle" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="url(#gold)">FON TAXI</text>
+  </g>
+</svg>

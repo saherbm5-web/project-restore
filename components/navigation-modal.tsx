@@ -1,13 +1,12 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import dynamic from 'next/dynamic';
 import { X, Navigation, MapPin, CheckCircle2, Loader2, Rocket } from 'lucide-react';
+import dynamic from 'next/dynamic';
 import { haversineDistance } from '@/lib/pricing';
 import { openDirectGPS } from '@/lib/gps-nav';
 import type { Ride } from '@/lib/supabase';
 
-const FonMap = dynamic(() => import('@/components/fon-map'), { ssr: false, loading: () => null });
 
 interface NavigationModalProps {
   ride: Ride;
@@ -16,6 +15,8 @@ interface NavigationModalProps {
   initialDriverLat?: number | null;
   initialDriverLng?: number | null;
 }
+
+const FonMap = dynamic(() => import('@/components/fon-map'), { ssr: false, loading: () => null });
 
 export default function NavigationModal({
   ride,

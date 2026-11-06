@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { Lock, Mail, Loader2, Settings as SettingsIcon, LogOut } from 'lucide-react';
 import { supabase } from '@/lib/supabase';

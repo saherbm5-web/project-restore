@@ -2,8 +2,8 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-
 import dynamic from 'next/dynamic';
+
 import { toast } from 'sonner';
 import {
   Car,
@@ -53,7 +53,6 @@ const FUEL_TYPE_ICONS: Record<FuelType, typeof Car> = {
   petrol: Fuel,
 };
 
-const FonMap = dynamic(() => import('@/components/fon-map'), { ssr: false, loading: () => null });
 
 function HistoryList() {
   const router = useRouter();
@@ -70,6 +69,8 @@ function HistoryList() {
 }
 
 type Tab = 'pending' | 'myrides' | 'history' | 'wallet';
+
+const FonMap = dynamic(() => import('@/components/fon-map'), { ssr: false, loading: () => null });
 
 export default function DriverApp() {
   const router = useRouter();

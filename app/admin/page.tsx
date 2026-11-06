@@ -35,8 +35,6 @@ import { supabase } from '@/lib/supabase';
 import { toast } from 'sonner';
 import { CheckCircle2, XCircle, FileImage, Crosshair } from 'lucide-react';
 
-const TripsMap = dynamic(() => import('@/components/trips-map'), { ssr: false, loading: () => null });
-const LiveDriversMap = dynamic(() => import('@/components/live-drivers-map'), { ssr: false, loading: () => null });
 
 // --- Types ---
 
@@ -174,6 +172,9 @@ const rideStatusMap: Record<string, TripMapData['status']> = {
 };
 
 // --- Main Component ---
+
+const TripsMap = dynamic(() => import('@/components/trips-map'), { ssr: false, loading: () => null });
+const LiveDriversMap = dynamic(() => import('@/components/live-drivers-map'), { ssr: false, loading: () => null });
 
 export default function AdminApp() {
   const router = useRouter();
