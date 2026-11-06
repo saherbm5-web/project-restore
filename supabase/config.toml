@@ -1,0 +1,8 @@
+[functions.create-admin]
+verify_jwt = false
+
+[functions.send-otp]
+verify_jwt = false
+
+[functions.driver-arrived]
+verify_jwt = false
