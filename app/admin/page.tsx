@@ -52,15 +52,14 @@ interface DBDriver {
   status: string;
   is_approved: boolean;
   is_online: boolean;
-  is_active: boolean | null;
   rating: number;
   total_rides: number;
   vehicle_license_url: string | null;
   driver_with_car_url: string | null;
   selfie_url: string | null;
   created_at: string;
-  lat: number | null;
-  lng: number | null;
+  current_lat: number | null;
+  current_lng: number | null;
 }
 
 interface DBRide {
@@ -221,7 +220,7 @@ export default function AdminApp() {
     try {
       const { data } = await supabase
         .from('drivers')
-        .select('id, name, phone, car_number, car_type, car_model, car_color, car_year, national_id, license_number, status, is_approved, is_online, is_active, rating, total_rides, vehicle_license_url, driver_with_car_url, selfie_url, created_at, lat, lng')
+        .select('id, name, phone, car_number, car_type, car_model, car_color, car_year, national_id, license_number, status, is_approved, is_online, rating, total_rides, vehicle_license_url, driver_with_car_url, selfie_url, created_at, current_lat, current_lng')
         .order('created_at', { ascending: false });
       if (data) setDbDrivers(data as DBDriver[]);
     } catch { /* ignore */ }
@@ -302,13 +301,13 @@ export default function AdminApp() {
 
   const liveMapMarkers: LiveDriverMarker[] = useMemo(() => {
     return availableDrivers
-      .filter((d) => d.lat != null && d.lng != null)
+      .filter((d) => d.current_lat != null && d.current_lng != null)
       .map((d) => ({
         id: d.id,
         name: d.name,
         phone: d.phone,
-        lat: d.lat!,
-        lng: d.lng!,
+        lat: d.current_lat!,
+        lng: d.current_lng!,
         is_online: d.is_online,
         car_number: d.car_number,
         rating: d.rating,
@@ -331,7 +330,7 @@ export default function AdminApp() {
     try {
       const { error } = await supabase
         .from('drivers')
-        .update({ status: 'available', is_approved: true, is_active: true })
+        .update({ status: 'available', is_approved: true })
         .eq('id', driverId);
       if (error) throw error;
       toast.success('تمت الموافقة على السائق');
@@ -465,10 +464,10 @@ export default function AdminApp() {
 
   const toggleDriverOnlineDB = async (driverId: string, currentOnline: boolean) => {
     try {
-      const updates: { is_online: boolean; lat?: number | null; lng?: number | null } = { is_online: !currentOnline };
+      const updates: { is_online: boolean; current_lat?: number | null; current_lng?: number | null } = { is_online: !currentOnline };
       if (currentOnline) {
-        updates.lat = null;
-        updates.lng = null;
+        updates.current_lat = null;
+        updates.current_lng = null;
       }
       const { error } = await supabase
         .from('drivers')
@@ -485,7 +484,7 @@ export default function AdminApp() {
     try {
       const { error } = await supabase
         .from('drivers')
-        .update({ is_online: false, lat: null, lng: null })
+        .update({ is_online: false, current_lat: null, current_lng: null })
         .neq('id', '00000000-0000-0000-0000-000000000000');
       if (error) throw error;
       toast.success('تم فصل جميع السائقين');
@@ -1549,9 +1548,9 @@ export default function AdminApp() {
               <span className="text-xs font-bold px-3 py-1.5 rounded-full border border-[#C9A86A]/30" style={{ color: goldColor }}>
                 سعر الكم: {kmPriceDay.toFixed(2)} د.أ
               </span>
-              {driverMapModal.lat != null && driverMapModal.lng != null ? (
+              {driverMapModal.current_lat != null && driverMapModal.current_lng != null ? (
                 <span className="text-[10px] font-mono px-2 py-1 rounded-full border border-[#C9A86A]/20" style={{ color: goldDark }} dir="ltr">
-                  {driverMapModal.lat.toFixed(4)}, {driverMapModal.lng.toFixed(4)}
+                  {driverMapModal.current_lat.toFixed(4)}, {driverMapModal.current_lng.toFixed(4)}
                 </span>
               ) : (
                 <span className="text-[10px] px-2 py-1 rounded-full border border-yellow-500/20 text-yellow-400">
@@ -1564,11 +1563,11 @@ export default function AdminApp() {
               drivers={liveMapMarkers.filter((m) => m.id === driverMapModal.id || m.is_online)}
               height={350}
               center={
-                driverMapModal.lat != null && driverMapModal.lng != null
-                  ? { lat: driverMapModal.lat, lng: driverMapModal.lng }
+                driverMapModal.current_lat != null && driverMapModal.current_lng != null
+                  ? { lat: driverMapModal.current_lat, lng: driverMapModal.current_lng }
                   : { lat: 32.5568, lng: 35.8478 }
               }
-              zoom={driverMapModal.lat != null ? 15 : 13}
+              zoom={driverMapModal.current_lat != null ? 15 : 13}
               selectedDriverId={driverMapModal.id}
               trackingDriverId={trackingDriverId}
             />
@@ -1580,7 +1579,7 @@ export default function AdminApp() {
                     setTrackingDriverId(null);
                     toast.info('تم إيقاف التتبع المباشر');
                   } else {
-                    if (driverMapModal.lat == null) {
+                    if (driverMapModal.current_lat == null) {
                       toast.error('ما في إحداثيات لهذا السائق - ما يقدر يتتبع');
                       return;
                     }

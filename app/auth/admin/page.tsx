@@ -19,7 +19,7 @@ export default function AdminAuthPage() {
         supabase
           .from('profiles')
           .select('role')
-          .eq('id', session.user.id)
+          .eq('user_id', session.user.id)
           .maybeSingle()
           .then(({ data }) => {
             if (data?.role === 'admin') router.push('/admin');
